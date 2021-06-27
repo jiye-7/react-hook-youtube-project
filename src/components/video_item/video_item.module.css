@@ -13,10 +13,10 @@
 }
 
 .video:hover {
-  transform: scale(1.02);
+  transform: scale(1.2);
 }
 
-.video:hover .thumbnail {
+.video:hover {
   width: 40%;
   height: 100%;
 }
