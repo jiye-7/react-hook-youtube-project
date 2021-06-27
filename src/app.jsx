@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './app.module.css';
 import SearchHeader from './components/search_header/search_header';
 import VideoDetail from './components/video_detail/video_detail';
@@ -12,16 +12,16 @@ function App({ youtube }) {
     setSelectedVideo(video);
   };
 
-  const search = (query) => {
-    // 검색여부와 상관없이 항상 video를 초기화
-    setSelectedVideo(null);
-    youtube
-      .search(query) //
-      .then((videos) => {
-        setVideos(videos);
-        setSelectedVideo(null);
-      });
-  };
+  const search = useCallback(
+    (query) => {
+      // 검색여부와 상관없이 항상 video를 초기화
+      setSelectedVideo(null);
+      youtube
+        .search(query) //
+        .then((videos) => setVideos(videos));
+    },
+    [youtube]
+  );
 
   // callBack을 등록해놓으면
   // [] 빈 배열은 마운트가 되었을 때 한 번만 호출
@@ -31,7 +31,7 @@ function App({ youtube }) {
     youtube
       .mostPopular() //
       .then((videos) => setVideos(videos));
-  }, []);
+  }, [youtube]);
 
   return (
     <div className={styles.app}>
