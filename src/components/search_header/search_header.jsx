@@ -1,26 +1,44 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './search_header.module.css';
 
-const inputRef = React.createRef();
-console.log(inputRef);
+const SearchHeader = ({ onSearch }) => {
+  const inputRef = useRef(); // react-hook에서는 useRef를 사용해야지 계속해서 memo가 된다.
 
-const SearchHeader = (props) => (
-  <header className={styles.header}>
-    <div className={styles.logo}>
-      <img className={styles.img} src="/images/youtubeLogo.png" alt="" />
-      <h1 className={styles.title}>Youtube</h1>
-    </div>
+  const handleSearch = () => {
+    const value = inputRef.current.value;
 
-    <input
-      ref={inputRef}
-      className={styles.input}
-      type="search"
-      placeholder="Search... :)"
-    />
-    <button className={styles.button} type="submit">
-      <i className="fas fa-search"></i>
-    </button>
-  </header>
-);
+    // 검색하는 것을 props으로 받아와야 된다.
+    onSearch(value);
+  };
+
+  const onClick = () => {
+    handleSearch();
+  };
+
+  const onKeyPress = (e) => {
+    if (e.key === 'enter') {
+      handleSearch();
+    }
+  };
+
+  return (
+    <header className={styles.header}>
+      <div className={styles.logo}>
+        <img className={styles.img} src='/images/youtubeLogo.png' alt='logo' />
+        <h1 className={styles.title}>Youtube</h1>
+      </div>
+      <input
+        ref={inputRef}
+        className={styles.input}
+        type='search'
+        placeholder='Search... :)'
+        onKeyPress={onKeyPress}
+      />
+      <button className={styles.button} type='submit' onClick={onClick}>
+        <i className='fas fa-search'></i>
+      </button>
+    </header>
+  );
+};
 
 export default SearchHeader;
