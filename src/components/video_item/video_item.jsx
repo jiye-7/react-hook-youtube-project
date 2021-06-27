@@ -13,7 +13,7 @@ const VideoItem = ({ video, video: { snippet }, onVideoClick, display }) => {
       <div className={styles.video}>
         <img
           className={styles.thumbnail}
-          src={snippet.thumbnails.medium.url}
+          src={snippet.thumbnails.default.url}
           alt='video thumbnail'
         />
         <div className={styles.metadata}>

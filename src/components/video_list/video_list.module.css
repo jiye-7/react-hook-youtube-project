@@ -2,4 +2,5 @@
   display: flex;
   flex-wrap: wrap; /* item의 크기에 맞게 내려가도록 */
   list-style: none;
+  margin: 0;
 }
