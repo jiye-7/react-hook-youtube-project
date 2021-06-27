@@ -13,9 +13,14 @@ function App({ youtube }) {
   };
 
   const search = (query) => {
+    // 검색여부와 상관없이 항상 video를 초기화
+    setSelectedVideo(null);
     youtube
       .search(query) //
-      .then((videos) => setVideos(videos));
+      .then((videos) => {
+        setVideos(videos);
+        setSelectedVideo(null);
+      });
   };
 
   // callBack을 등록해놓으면
